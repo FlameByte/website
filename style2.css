@@ -1,0 +1,83 @@
+.amazing-bg {
+  background: rgb(209,174,238);
+background: radial-gradient(circle, rgba(209,174,238,0.9051995798319328) 0%, rgba(148,187,233,1) 85%);
+}
+
+.container {
+  background-color:white;
+  padding: 0 !important;
+}
+
+.carousel-inner  img{
+height: 30em;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: white !important;
+  font-size: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  z-index: 1;
+  position:relative;
+}
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;..");
+  opacity: 100%;
+}
+.tutvustus{
+  text-align:center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.house-description {
+  display: flex;
+  text-align: left;
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+#ruumipealkiri {
+  padding-left: 18px;
+  white-space: nowrap;
+}
+.container-fluid {
+  padding: 0 !important;
+}
+.kontaktandmed {
+  text-align:center;
+  padding-bottom: 50px;
+}
+.map-responsive{
+  overflow:hidden;
+  padding-bottom:50%;
+  position:relative;
+  height:0;
+}
+.map-responsive iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+.galerii-container {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+.galerii-container a {
+  width:230px;
+  margin: 20px 20px 0;
+}
+.galerii-container a:hover{
+  opacity: 0.8;
+}
+.galerii-container a div {
+  width: 100%;
+  height: 235px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color:rgb(38, 38, 189);
+  font-size: 30px;
+}
