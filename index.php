@@ -52,7 +52,7 @@ require('tekst.php');
                         <a class="nav-link" href="logout.php">Logi välja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Broneeri</a>
+                        <a class="nav-link" href="broneeri.php">Broneeri</a>
                     </li>
                     <?php } else { ?>
                     <li class="nav-item active">

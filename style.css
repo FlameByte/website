@@ -8,6 +8,14 @@
 body {
     background-color: #435165;
 }
+
+#kalendrid {
+    display:flex;
+    flex-direction:row;
+}
+
+
+
 .login {
     width: 400px;
     background-color: #ffffff;

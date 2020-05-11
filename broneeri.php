@@ -13,17 +13,73 @@
     
 </head>
 
+<?php
+
+$servername = "localhost";
+$username = "admin";
+$password = "admin";
+$database = "booking";
+$conn = new mysqli($servername, $username, $password, $database);
+
+if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error);
+}
+
+function getDatesFromRange($start, $end, $format = 'Y-m-d') {
+    $array = array();
+    $interval = new DateInterval('P1D');
+    
+    $realEnd = new DateTime($end);
+    $realEnd->add($interval);
+    
+    $period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+    
+    foreach($period as $date) {
+    $array[] = $date->format($format);
+    }
+    
+    return $array;
+    }
+
+
+$query = "SELECT `start_date`, `end_date` from kalender";
+$data = $conn->query($query);
+    if ($data) {
+    
+    $arr = array();
+    while($row = $data->fetch_assoc()){
+        $dates = getDatesFromRange($row["start_date"], $row["end_date"], "Y-m-d");
+        foreach($dates as $date){
+            array_push($arr, $date);
+            
+        }
+    }
+    $arr2 = "";
+    foreach($arr as $date){
+        $arr2 .= "'".$date."',";
+        }
+        $arr2 = rtrim($arr2, ',');
+    }
+    
+
+?>
+
 <body>
 <div class="container" id ="katse">
     <div class="broneering">
         <div id="date-range12-container">
 
-        <input type="text" id="datetimepicker3"/>
-
+   
 
         
 </div>
-<form method="post" name="myemailform" action="kontakt.php">
+<form method="post" name="myemailform" action="booking.php">
+                                <p> Vali saabumispäev</p>
+                                <p> Vali lahkumispäev</p>
+                                <div class="form-group" id="kalendrid">
+                                    <input type="text" id="date_timepicker_start" name="booking"/>
+                                    <input type="text" id="date_timepicker_end" name="booking2"/>
+                                </div>
                                 <div class="form-group">
                                     <label for="Nimi">Nimi</label>
                                     <input type="text" class="form-control" id="nimi" placeholder="Sisestage Nimi"
@@ -61,11 +117,38 @@
 
 $.datetimepicker.setLocale('et');
 
-jQuery('#datetimepicker3').datetimepicker({
-  format:'d.m.Y H:i',
+jQuery(function(){
+ jQuery('#date_timepicker_start').datetimepicker({
+  format:'Y-m-d',
+  onSelectDate:function( ct ){
+   this.setOptions({
+    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+   })
+  },
   inline:true,
-  lang:'et'
+  lang:'et',
+  timepicker:false,
+  defaultSelect:false,
+  disabledDates: [ <?php echo $arr2; ?> ] , formatDate:'Y-m-d'
+ });
+ jQuery('#date_timepicker_end').datetimepicker({
+  format:'Y-m-d',
+  onSelectDate:function( ct ){
+   this.setOptions({
+    minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
+   })
+  },
+  inline:true,
+  lang:'et',
+  timepicker:false,
+  defaultSelect:false,
+  disabledDates: [ <?php echo $arr2; ?> ] , formatDate:'Y-m-d'
+ });
 });
+
+
+
+
 
 
 </script>
