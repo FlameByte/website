@@ -54,6 +54,7 @@ $data = $conn->query($query);
             
         }
     }
+
     $arr2 = "";
     foreach($arr as $date){
         $arr2 .= "'".$date."',";
@@ -80,6 +81,7 @@ $data = $conn->query($query);
                                     <input type="text" id="date_timepicker_start" name="booking"/>
                                     <input type="text" id="date_timepicker_end" name="booking2"/>
                                 </div>
+                                <input type="text" id="price_id" name="hind" readonly/>
                                 <div class="form-group">
                                     <label for="Nimi">Nimi</label>
                                     <input type="text" class="form-control" id="nimi" placeholder="Sisestage Nimi"
@@ -121,6 +123,7 @@ jQuery(function(){
  jQuery('#date_timepicker_start').datetimepicker({
   format:'Y-m-d',
   onSelectDate:function( ct ){
+   set_price(); 
    this.setOptions({
     maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
    })
@@ -134,6 +137,7 @@ jQuery(function(){
  jQuery('#date_timepicker_end').datetimepicker({
   format:'Y-m-d',
   onSelectDate:function( ct ){
+    set_price();  
    this.setOptions({
     minDate:jQuery('#date_timepicker_start').val()?jQuery('#date_timepicker_start').val():false
    })
@@ -146,7 +150,44 @@ jQuery(function(){
  });
 });
 
+var getDaysArray = function(start, end) {
+for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+arr.push(new Date(dt));
+}
+return arr;
+};
 
+function set_price(){
+    var test = $("#date_timepicker_start").val()
+    var test2 = $("#date_timepicker_end").val()
+    if(test != "" && test2 != ""){
+        var dates = getDaysArray(new Date(test), new Date(test2));
+        var price = 0;
+        for(var i = 0; i< dates.length;i++){
+            var date = dates[i];
+            //kui on kindel kuu ja päev, siis hind suureneb.
+            if(date.getMonth() == 11){
+                if(date.getDate() == 30 || date.getDate() == 31){
+                    price += 185;
+                    continue;
+                }
+            }else if(date.getMonth() == 0){
+                if(date.getDate() == 1 || date.getDate() == 2){
+                    price += 185;
+                    continue;
+                }
+            }
+            if(date.getDay() == 5 || date.getDay() == 6 || date.getDay() == 0){
+                price +=142;
+            }else {
+                price += 245;
+            }
+        }
+        $("#price_id").val("€"+price);
+    }
+    
+    
+}
 
 
 

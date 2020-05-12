@@ -20,8 +20,25 @@
     header('Location: broneeri.php');
     exit();
 
+    $name = $_POST['nimi'];
+    $email = $_POST['email'];
+    $teema = $_POST['teema'];
+    $lisainfo = $_POST['lisainfo'];
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+    $hind = $_POST['hind'];
 
 
+
+    $email_from = 'info@pilkuse.ee';
+    $email_subject = "Puhkemaja broneering";
+    $email_body = "Te olete broneerinud puhkemaja alates $start_date kuni $end_date, mille hinnaks on $hind:\n $teema . $lisainfo".
+        
+    $to = "henrilindret@gmail.com";
+    $headers = "From: $email_from \r\n";
+    $headers .= "Reply-To: $visitor_email \r\n";
+    //Saadab meili
+    mail($to,$email_subject,$email_body,$headers);
 
 
 
